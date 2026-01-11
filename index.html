@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+<meta charset="UTF-8">
+<title>Web Chat</title>
+<style>
+body {
+    background:#111;
+    color:white;
+    font-family:Arial;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    height:100vh;
+}
+
+#chatBox {
+    width:400px;
+    height:500px;
+    background:#222;
+    border-radius:10px;
+    display:flex;
+    flex-direction:column;
+    overflow:hidden;
+}
+
+#messages {
+    flex:1;
+    padding:10px;
+    overflow-y:auto;
+}
+
+.message {
+    margin-bottom:8px;
+    padding:6px;
+    background:#333;
+    border-radius:5px;
+}
+
+#inputArea {
+    display:flex;
+    border-top:1px solid #444;
+}
+
+#username, #messageInput {
+    flex:1;
+    padding:10px;
+    background:#111;
+    border:none;
+    color:white;
+}
+
+#sendBtn {
+    padding:10px;
+    background:#00ff99;
+    border:none;
+    cursor:pointer;
+}
+</style>
+</head>
+
+<body>
+
+<div id="chatBox">
+    <div id="messages"></div>
+    <div id="inputArea">
+        <input id="username" placeholder="Nick">
+        <input id="messageInput" placeholder="Napisz wiadomość...">
+        <button id="sendBtn">Wyślij</button>
+    </div>
+</div>
+
+<script>
+const messages = document.getElementById("messages");
+const messageInput = document.getElementById("messageInput");
+const usernameInput = document.getElementById("username");
+
+document.getElementById("sendBtn").onclick = sendMessage;
+
+function sendMessage() {
+    const text = messageInput.value;
+    const user = usernameInput.value || "Guest";
+
+    if (text === "") return;
+
+    const msg = document.createElement("div");
+    msg.classList.add("message");
+    msg.innerHTML = "<b>" + user + ":</b> " + text;
+
+    messages.appendChild(msg);
+    messageInput.value = "";
+    messages.scrollTop = messages.scrollHeight;
+}
+</script>
+
+</body>
+</html>
